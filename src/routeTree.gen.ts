@@ -9,12 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as SiteRouteImport } from './routes/_site'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteFaqRouteImport } from './routes/_site.faq'
 import { Route as SiteProcessRouteImport } from './routes/_site.process'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminAboutRouteImport } from './routes/_authenticated/admin.about'
+import { Route as AuthenticatedAdminBlogRouteImport } from './routes/_authenticated/admin.blog'
+import { Route as AuthenticatedAdminCategoriesRouteImport } from './routes/_authenticated/admin.categories'
+import { Route as AuthenticatedAdminFaqRouteImport } from './routes/_authenticated/admin.faq'
+import { Route as AuthenticatedAdminHeroRouteImport } from './routes/_authenticated/admin.hero'
+import { Route as AuthenticatedAdminInquiriesRouteImport } from './routes/_authenticated/admin.inquiries'
+import { Route as AuthenticatedAdminPortfolioRouteImport } from './routes/_authenticated/admin.portfolio'
+import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authenticated/admin.process'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
+import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
 import { Route as SiteBlogIndexRouteImport } from './routes/_site.blog.index'
 import { Route as SiteBlogSlugRouteImport } from './routes/_site.blog.$slug'
 import { Route as SitePortfolioIndexRouteImport } from './routes/_site.portfolio.index'
@@ -22,9 +38,23 @@ import { Route as SitePortfolioSlugRouteImport } from './routes/_site.portfolio.
 import { Route as SiteServicesIndexRouteImport } from './routes/_site.services.index'
 import { Route as SiteServicesSlugRouteImport } from './routes/_site.services.$slug'
 
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
@@ -51,6 +81,78 @@ const SiteProcessRoute = SiteProcessRouteImport.update({
   path: '/process',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminAboutRoute = AuthenticatedAdminAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminBlogRoute = AuthenticatedAdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminCategoriesRoute =
+  AuthenticatedAdminCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminFaqRoute = AuthenticatedAdminFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminHeroRoute = AuthenticatedAdminHeroRouteImport.update({
+  id: '/hero',
+  path: '/hero',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminInquiriesRoute =
+  AuthenticatedAdminInquiriesRouteImport.update({
+    id: '/inquiries',
+    path: '/inquiries',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPortfolioRoute =
+  AuthenticatedAdminPortfolioRouteImport.update({
+    id: '/portfolio',
+    path: '/portfolio',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProcessRoute =
+  AuthenticatedAdminProcessRouteImport.update({
+    id: '/process',
+    path: '/process',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminServicesRoute =
+  AuthenticatedAdminServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const SiteBlogIndexRoute = SiteBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -84,41 +186,86 @@ const SiteServicesSlugRoute = SiteServicesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/faq': typeof SiteFaqRoute
   '/process': typeof SiteProcessRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/about': typeof AuthenticatedAdminAboutRoute
+  '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/faq': typeof AuthenticatedAdminFaqRoute
+  '/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/admin/inquiries': typeof AuthenticatedAdminInquiriesRoute
+  '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/blog/$slug': typeof SiteBlogSlugRoute
   '/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/services/$slug': typeof SiteServicesSlugRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/blog/': typeof SiteBlogIndexRoute
   '/portfolio/': typeof SitePortfolioIndexRoute
   '/services/': typeof SiteServicesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof SiteIndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/faq': typeof SiteFaqRoute
   '/process': typeof SiteProcessRoute
-  '/': typeof SiteIndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/about': typeof AuthenticatedAdminAboutRoute
+  '/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/faq': typeof AuthenticatedAdminFaqRoute
+  '/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/admin/inquiries': typeof AuthenticatedAdminInquiriesRoute
+  '/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/blog/$slug': typeof SiteBlogSlugRoute
   '/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/services/$slug': typeof SiteServicesSlugRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/blog': typeof SiteBlogIndexRoute
   '/portfolio': typeof SitePortfolioIndexRoute
   '/services': typeof SiteServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_site/about': typeof SiteAboutRoute
   '/_site/contact': typeof SiteContactRoute
   '/_site/faq': typeof SiteFaqRoute
   '/_site/process': typeof SiteProcessRoute
+  '/admin/login': typeof AdminLoginRoute
   '/_site/': typeof SiteIndexRoute
+  '/_authenticated/admin/about': typeof AuthenticatedAdminAboutRoute
+  '/_authenticated/admin/blog': typeof AuthenticatedAdminBlogRoute
+  '/_authenticated/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/_authenticated/admin/faq': typeof AuthenticatedAdminFaqRoute
+  '/_authenticated/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/_authenticated/admin/inquiries': typeof AuthenticatedAdminInquiriesRoute
+  '/_authenticated/admin/portfolio': typeof AuthenticatedAdminPortfolioRoute
+  '/_authenticated/admin/process': typeof AuthenticatedAdminProcessRoute
+  '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_site/blog/$slug': typeof SiteBlogSlugRoute
   '/_site/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/_site/services/$slug': typeof SiteServicesSlugRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_site/blog/': typeof SiteBlogIndexRoute
   '/_site/portfolio/': typeof SitePortfolioIndexRoute
   '/_site/services/': typeof SiteServicesIndexRoute
@@ -127,57 +274,126 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sitemap.xml'
+    | '/admin'
     | '/about'
     | '/contact'
     | '/faq'
     | '/process'
+    | '/admin/login'
+    | '/admin/about'
+    | '/admin/blog'
+    | '/admin/categories'
+    | '/admin/faq'
+    | '/admin/hero'
+    | '/admin/inquiries'
+    | '/admin/portfolio'
+    | '/admin/process'
+    | '/admin/profile'
+    | '/admin/services'
+    | '/admin/settings'
     | '/blog/$slug'
     | '/portfolio/$slug'
     | '/services/$slug'
+    | '/admin/'
     | '/blog/'
     | '/portfolio/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
+    | '/sitemap.xml'
     | '/about'
     | '/contact'
     | '/faq'
     | '/process'
-    | '/'
+    | '/admin/login'
+    | '/admin/about'
+    | '/admin/blog'
+    | '/admin/categories'
+    | '/admin/faq'
+    | '/admin/hero'
+    | '/admin/inquiries'
+    | '/admin/portfolio'
+    | '/admin/process'
+    | '/admin/profile'
+    | '/admin/services'
+    | '/admin/settings'
     | '/blog/$slug'
     | '/portfolio/$slug'
     | '/services/$slug'
+    | '/admin'
     | '/blog'
     | '/portfolio'
     | '/services'
   id:
     | '__root__'
+    | '/_authenticated'
     | '/_site'
+    | '/sitemap.xml'
+    | '/_authenticated/admin'
     | '/_site/about'
     | '/_site/contact'
     | '/_site/faq'
     | '/_site/process'
+    | '/admin/login'
     | '/_site/'
+    | '/_authenticated/admin/about'
+    | '/_authenticated/admin/blog'
+    | '/_authenticated/admin/categories'
+    | '/_authenticated/admin/faq'
+    | '/_authenticated/admin/hero'
+    | '/_authenticated/admin/inquiries'
+    | '/_authenticated/admin/portfolio'
+    | '/_authenticated/admin/process'
+    | '/_authenticated/admin/profile'
+    | '/_authenticated/admin/services'
+    | '/_authenticated/admin/settings'
     | '/_site/blog/$slug'
     | '/_site/portfolio/$slug'
     | '/_site/services/$slug'
+    | '/_authenticated/admin/'
     | '/_site/blog/'
     | '/_site/portfolio/'
     | '/_site/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_site/': {
       id: '/_site/'
@@ -213,6 +429,97 @@ declare module '@tanstack/react-router' {
       fullPath: '/process'
       preLoaderRoute: typeof SiteProcessRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/about': {
+      id: '/_authenticated/admin/about'
+      path: '/about'
+      fullPath: '/admin/about'
+      preLoaderRoute: typeof AuthenticatedAdminAboutRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/blog': {
+      id: '/_authenticated/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AuthenticatedAdminBlogRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/categories': {
+      id: '/_authenticated/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AuthenticatedAdminCategoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/faq': {
+      id: '/_authenticated/admin/faq'
+      path: '/faq'
+      fullPath: '/admin/faq'
+      preLoaderRoute: typeof AuthenticatedAdminFaqRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/hero': {
+      id: '/_authenticated/admin/hero'
+      path: '/hero'
+      fullPath: '/admin/hero'
+      preLoaderRoute: typeof AuthenticatedAdminHeroRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/inquiries': {
+      id: '/_authenticated/admin/inquiries'
+      path: '/inquiries'
+      fullPath: '/admin/inquiries'
+      preLoaderRoute: typeof AuthenticatedAdminInquiriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/portfolio': {
+      id: '/_authenticated/admin/portfolio'
+      path: '/portfolio'
+      fullPath: '/admin/portfolio'
+      preLoaderRoute: typeof AuthenticatedAdminPortfolioRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/process': {
+      id: '/_authenticated/admin/process'
+      path: '/process'
+      fullPath: '/admin/process'
+      preLoaderRoute: typeof AuthenticatedAdminProcessRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/services': {
+      id: '/_authenticated/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AuthenticatedAdminServicesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_site/blog/': {
       id: '/_site/blog/'
@@ -259,6 +566,50 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAboutRoute: typeof AuthenticatedAdminAboutRoute
+  AuthenticatedAdminBlogRoute: typeof AuthenticatedAdminBlogRoute
+  AuthenticatedAdminCategoriesRoute: typeof AuthenticatedAdminCategoriesRoute
+  AuthenticatedAdminFaqRoute: typeof AuthenticatedAdminFaqRoute
+  AuthenticatedAdminHeroRoute: typeof AuthenticatedAdminHeroRoute
+  AuthenticatedAdminInquiriesRoute: typeof AuthenticatedAdminInquiriesRoute
+  AuthenticatedAdminPortfolioRoute: typeof AuthenticatedAdminPortfolioRoute
+  AuthenticatedAdminProcessRoute: typeof AuthenticatedAdminProcessRoute
+  AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
+  AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAboutRoute: AuthenticatedAdminAboutRoute,
+  AuthenticatedAdminBlogRoute: AuthenticatedAdminBlogRoute,
+  AuthenticatedAdminCategoriesRoute: AuthenticatedAdminCategoriesRoute,
+  AuthenticatedAdminFaqRoute: AuthenticatedAdminFaqRoute,
+  AuthenticatedAdminHeroRoute: AuthenticatedAdminHeroRoute,
+  AuthenticatedAdminInquiriesRoute: AuthenticatedAdminInquiriesRoute,
+  AuthenticatedAdminPortfolioRoute: AuthenticatedAdminPortfolioRoute,
+  AuthenticatedAdminProcessRoute: AuthenticatedAdminProcessRoute,
+  AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
+  AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
+  AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 interface SiteRouteChildren {
   SiteAboutRoute: typeof SiteAboutRoute
   SiteContactRoute: typeof SiteContactRoute
@@ -290,7 +641,10 @@ const SiteRouteChildren: SiteRouteChildren = {
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
