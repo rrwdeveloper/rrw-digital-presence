@@ -14,6 +14,11 @@ function check<T>(res: { data: T; error: { message: string } | null }): T {
   return res.data;
 }
 
+function list<T>(res: { data: T[] | null; error: { message: string } | null }): T[] {
+  if (res.error) throw new Error(res.error.message);
+  return res.data ?? [];
+}
+
 export const getSiteData = createServerFn({ method: "GET" }).handler(async () => {
   const c = db();
   const [settings, hero, about] = await Promise.all([
@@ -31,7 +36,7 @@ export const getSiteData = createServerFn({ method: "GET" }).handler(async () =>
 });
 
 export const getServices = createServerFn({ method: "GET" }).handler(async () =>
-  check(await db().from("services").select("*").eq("active", true).order("sort_order")),
+  list(await db().from("services").select("*").eq("active", true).order("sort_order")),
 );
 
 export const getServiceBySlug = createServerFn({ method: "GET" })
@@ -41,7 +46,7 @@ export const getServiceBySlug = createServerFn({ method: "GET" })
   );
 
 export const getPortfolio = createServerFn({ method: "GET" }).handler(async () =>
-  check(
+  list(
     await db()
       .from("portfolio")
       .select("*")
@@ -58,15 +63,15 @@ export const getPortfolioBySlug = createServerFn({ method: "GET" })
   );
 
 export const getProcessSteps = createServerFn({ method: "GET" }).handler(async () =>
-  check(await db().from("process_steps").select("*").eq("active", true).order("sort_order")),
+  list(await db().from("process_steps").select("*").eq("active", true).order("sort_order")),
 );
 
 export const getFaqs = createServerFn({ method: "GET" }).handler(async () =>
-  check(await db().from("faqs").select("*").eq("active", true).order("sort_order")),
+  list(await db().from("faqs").select("*").eq("active", true).order("sort_order")),
 );
 
 export const getBlogPosts = createServerFn({ method: "GET" }).handler(async () =>
-  check(
+  list(
     await db()
       .from("blog_posts")
       .select("id,title,slug,excerpt,thumbnail_url,published_at,author,tags,blog_categories(name,slug)")

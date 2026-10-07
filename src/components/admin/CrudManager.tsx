@@ -93,7 +93,7 @@ export function CrudManager({
 
   const isNew = editing && !("id" in editing);
   const set = (k: string, v: unknown) =>
-    setValues((prev) => {
+    setValues((prev: any) => {
       const next = { ...prev, [k]: v };
       if (autoSlugFrom && k === autoSlugFrom && isNew) next.slug = slugify(String(v ?? ""));
       return next;
@@ -272,7 +272,7 @@ export function SingletonEditor({ table, title, description, fields }: { table: 
       <div className="grid gap-5 rounded-xl border bg-card p-6 md:grid-cols-2">
         {fields.map((f) => (
           <div key={f.name} className={cn((f.full || ["textarea", "markdown", "list", "pairs"].includes(f.type)) && "md:col-span-2")}>
-            <FieldInput field={f} values={values} set={(k, v) => setValues((p) => ({ ...p, [k]: v }))} />
+            <FieldInput field={f} values={values} set={(k, v) => setValues((p: any) => ({ ...p, [k]: v }))} />
           </div>
         ))}
         <div className="md:col-span-2">
