@@ -29,7 +29,7 @@ function Inquiries() {
 
   async function setStatus(id: string, status: string) {
     const { error } = await supabase.from("inquiries").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Status diperbarui");
     qc.invalidateQueries({ queryKey: ["admin", "inquiries"] });
     qc.invalidateQueries({ queryKey: ["admin-stats"] });

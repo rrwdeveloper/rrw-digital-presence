@@ -20,11 +20,11 @@ import { slugify } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Row = Record<string, any> & { id: string };
+type Row = any;
 
 export type Column = { key: string; label: string; render?: (r: Row) => React.ReactNode; className?: string };
 
-export function AdminPageHeader({ title, description, action }: { title: string; description?: string; action?: React.ReactNode }) {
+export function AdminPageHeader({ title, description, action }: { title: string; description?: string | undefined; action?: React.ReactNode }) {
   return (
     <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
       <div>
@@ -60,16 +60,16 @@ export function CrudManager({
 }: {
   table: string;
   title: string;
-  description?: string;
+  description?: string | undefined;
   fields: Field[];
   columns: Column[];
-  defaults: Record<string, unknown>;
+  defaults: any;
   orderBy?: string;
   ascending?: boolean;
   sortable?: boolean;
   select?: string;
   autoSlugFrom?: string;
-  onBeforeSave?: (v: Record<string, unknown>) => Record<string, unknown>;
+  onBeforeSave?: (v: any) => any;
 }) {
   const qc = useQueryClient();
   const key = ["admin", table];
@@ -82,10 +82,10 @@ export function CrudManager({
       return data as Row[];
     },
   });
-  const [editing, setEditing] = useState<Row | Record<string, unknown> | null>(null);
+  const [editing, setEditing] = useState<Row | any | null>(null);
   const [deleting, setDeleting] = useState<Row | null>(null);
   const [saving, setSaving] = useState(false);
-  const [values, setValues] = useState<Record<string, unknown>>({});
+  const [values, setValues] = useState<any>({});
 
   useEffect(() => {
     if (editing) setValues({ ...editing });
@@ -107,9 +107,9 @@ export function CrudManager({
   async function save() {
     let v = cleanValues(fields, values);
     const err = validate(fields, v);
-    if (err) return toast.error(err);
+    if (err) { toast.error(err); return; }
     if (onBeforeSave) v = onBeforeSave(v);
-    const payload: Record<string, unknown> = {};
+    const payload: any = {};
     for (const f of fields) payload[f.name] = v[f.name];
     if (sortable && isNew) payload.sort_order = (rows.at(-1)?.sort_order ?? 0) + 1;
     setSaving(true);
@@ -117,7 +117,7 @@ export function CrudManager({
     const q = supabase.from(table as any) as any;
     const { error } = isNew ? await q.insert(payload) : await q.update(payload).eq("id", (editing as Row).id);
     setSaving(false);
-    if (error) return toast.error(error.message.includes("duplicate") ? "Slug sudah digunakan" : error.message);
+    if (error) { toast.error(error.message.includes("duplicate") ? "Slug sudah digunakan" : error.message); return; }
     toast.success("Tersimpan");
     setEditing(null);
     refresh();
@@ -231,7 +231,7 @@ export function CrudManager({
 }
 
 /** Edits the single row of a one-row content table (settings, hero, about). */
-export function SingletonEditor({ table, title, description, fields }: { table: string; title: string; description?: string; fields: Field[] }) {
+export function SingletonEditor({ table, title, description, fields }: { table: string; title: string; description?: string | undefined; fields: Field[] }) {
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["admin", table],
@@ -242,7 +242,7 @@ export function SingletonEditor({ table, title, description, fields }: { table: 
       return data as Row | null;
     },
   });
-  const [values, setValues] = useState<Record<string, unknown>>({});
+  const [values, setValues] = useState<any>({});
   const [saving, setSaving] = useState(false);
   useEffect(() => {
     if (data) setValues(data);
@@ -251,15 +251,15 @@ export function SingletonEditor({ table, title, description, fields }: { table: 
   async function save() {
     const v = cleanValues(fields, values);
     const err = validate(fields, v);
-    if (err) return toast.error(err);
-    const payload: Record<string, unknown> = {};
+    if (err) { toast.error(err); return; }
+    const payload: any = {};
     for (const f of fields) payload[f.name] = v[f.name];
     setSaving(true);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const q = supabase.from(table as any) as any;
     const { error } = data ? await q.update(payload).eq("id", data.id) : await q.insert(payload);
     setSaving(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Perubahan disimpan");
     qc.invalidateQueries({ queryKey: ["admin", table] });
     qc.invalidateQueries({ queryKey: ["site"] });

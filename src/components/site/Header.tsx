@@ -15,7 +15,7 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ brand = "RRW" }: { brand?: string }) {
+export function Logo({ brand = "RRW" }: { brand?: string | undefined }) {
   return (
     <span className="flex items-center gap-2.5">
       <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink font-display text-sm font-bold text-ink-foreground">
@@ -27,7 +27,7 @@ export function Logo({ brand = "RRW" }: { brand?: string }) {
   );
 }
 
-export function Header({ brand }: { brand?: string }) {
+export function Header({ brand }: { brand?: string | undefined }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {

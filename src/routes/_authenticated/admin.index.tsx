@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 });
 
 async function count(table: "services" | "portfolio" | "blog_posts" | "inquiries", status?: string) {
-  let q = supabase.from(table).select("id", { count: "exact", head: true });
+  let q: any = supabase.from(table).select("id", { count: "exact", head: true });
   if (status) q = q.eq("status", status);
   const { count } = await q;
   return count ?? 0;
