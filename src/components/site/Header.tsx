@@ -18,7 +18,7 @@ const NAV = [
 export function Logo({ brand = "RRW" }: { brand?: string | undefined }) {
   return (
     <span className="flex items-center gap-2.5">
-      <span className="grid h-9 w-9 place-items-center rounded-lg bg-ink font-display text-sm font-bold text-ink-foreground">
+      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-ink font-display text-sm font-bold text-ink-foreground">
         {brand.slice(0, 1)}
         <span className="text-primary">.</span>
       </span>
