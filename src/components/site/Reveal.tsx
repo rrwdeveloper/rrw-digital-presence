@@ -46,7 +46,7 @@ export function SectionHeading({
 }: {
   eyebrow?: string;
   title: string;
-  description?: string | null;
+  description?: string | null | undefined;
   align?: "left" | "center";
 }) {
   return (
@@ -58,7 +58,7 @@ export function SectionHeading({
   );
 }
 
-export function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string | null }) {
+export function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string | null | undefined }) {
   return (
     <section className="relative overflow-hidden border-b bg-hero">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />

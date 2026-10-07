@@ -39,7 +39,7 @@ export function FaqList({ faqs }: { faqs: Faq[] }) {
   );
 }
 
-export function CtaBand({ whatsapp, title = "Have a project in mind?" }: { whatsapp?: string | null; title?: string }) {
+export function CtaBand({ whatsapp, title = "Have a project in mind?" }: { whatsapp?: string | null | undefined; title?: string }) {
   return (
     <section className="container-x py-20 md:py-28">
       <Reveal className="relative overflow-hidden rounded-3xl bg-ink-gradient px-6 py-14 text-ink-foreground md:px-16 md:py-20">
