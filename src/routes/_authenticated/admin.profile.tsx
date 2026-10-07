@@ -21,13 +21,13 @@ function Profile() {
 
   async function change(e: React.FormEvent) {
     e.preventDefault();
-    if (pw.length < 8) return toast.error("Password minimal 8 karakter");
-    if (pw !== pw2) return toast.error("Konfirmasi password tidak cocok");
+    if (pw.length < 8) { toast.error("Password minimal 8 karakter"); return; }
+    if (pw !== pw2) { toast.error("Konfirmasi password tidak cocok"); return; }
     setBusy(true);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await supabase.auth.updateUser({ password: pw, current_password: current } as any);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Password diperbarui");
     setCurrent(""); setPw(""); setPw2("");
   }

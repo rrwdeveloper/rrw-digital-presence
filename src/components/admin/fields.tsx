@@ -32,7 +32,7 @@ export type Field = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Values = Record<string, any>;
+type Values = any;
 
 function ImageInput({ value, onChange }: { value: string | null; onChange: (v: string | null) => void }) {
   const [busy, setBusy] = useState(false);
