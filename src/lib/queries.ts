@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import {
+  getAddons,
   getBlogPostBySlug,
   getBlogPosts,
   getFaqs,
@@ -15,6 +16,7 @@ const stale = 60_000;
 
 export const siteQuery = queryOptions({ queryKey: ["site"], queryFn: () => getSiteData(), staleTime: stale });
 export const servicesQuery = queryOptions({ queryKey: ["services"], queryFn: () => getServices(), staleTime: stale });
+export const addonsQuery = queryOptions({ queryKey: ["addons"], queryFn: () => getAddons(), staleTime: stale });
 export const serviceQuery = (slug: string) =>
   queryOptions({ queryKey: ["service", slug], queryFn: () => getServiceBySlug({ data: { slug } }), staleTime: stale });
 export const portfolioQuery = queryOptions({ queryKey: ["portfolio"], queryFn: () => getPortfolio(), staleTime: stale });

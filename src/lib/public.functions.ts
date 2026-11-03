@@ -39,6 +39,10 @@ export const getServices = createServerFn({ method: "GET" }).handler(async () =>
   list(await db().from("services").select("*").eq("active", true).order("sort_order")),
 );
 
+export const getAddons = createServerFn({ method: "GET" }).handler(async () =>
+  list(await db().from("addons").select("*").eq("active", true).order("sort_order")),
+);
+
 export const getServiceBySlug = createServerFn({ method: "GET" })
   .inputValidator((d) => z.object({ slug: z.string().max(200) }).parse(d))
   .handler(async ({ data }) =>
