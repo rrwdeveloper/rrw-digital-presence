@@ -41,6 +41,48 @@ export type Database = {
         }
         Relationships: []
       }
+      addons: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          icon: string
+          id: string
+          name: string
+          price: number
+          price_label: string
+          price_suffix: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          icon?: string
+          id?: string
+          name: string
+          price?: number
+          price_label?: string
+          price_suffix?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          icon?: string
+          id?: string
+          name?: string
+          price?: number
+          price_label?: string
+          price_suffix?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
