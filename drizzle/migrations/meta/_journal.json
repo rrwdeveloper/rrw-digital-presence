@@ -8,6 +8,13 @@
       "when": 1793704519305,
       "tag": "0000_addons_and_pamphlet_content",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793708040539,
+      "tag": "0001_team_page",
+      "breakpoints": true
     }
   ]
 }

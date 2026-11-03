@@ -21,6 +21,10 @@ export type Database = {
           highlights: Json
           id: string
           intro: string | null
+          team_heading: string | null
+          team_intro: string | null
+          team_milestones: Json
+          team_story: string | null
           updated_at: string
         }
         Insert: {
@@ -29,6 +33,10 @@ export type Database = {
           highlights?: Json
           id?: string
           intro?: string | null
+          team_heading?: string | null
+          team_intro?: string | null
+          team_milestones?: Json
+          team_story?: string | null
           updated_at?: string
         }
         Update: {
@@ -37,6 +45,10 @@ export type Database = {
           highlights?: Json
           id?: string
           intro?: string | null
+          team_heading?: string | null
+          team_intro?: string | null
+          team_milestones?: Json
+          team_story?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -457,6 +469,48 @@ export type Database = {
           tagline?: string
           updated_at?: string
           whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          active: boolean
+          bio: string | null
+          created_at: string
+          id: string
+          initial: string
+          instagram: string | null
+          name: string
+          photo_url: string | null
+          role: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bio?: string | null
+          created_at?: string
+          id?: string
+          initial?: string
+          instagram?: string | null
+          name: string
+          photo_url?: string | null
+          role?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bio?: string | null
+          created_at?: string
+          id?: string
+          initial?: string
+          instagram?: string | null
+          name?: string
+          photo_url?: string | null
+          role?: string | null
+          sort_order?: number
+          updated_at?: string
         }
         Relationships: []
       }
