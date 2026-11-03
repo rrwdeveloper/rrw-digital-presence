@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoUrl from "@/assets/rrw-logo.png";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -15,16 +16,8 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ brand = "RRW" }: { brand?: string | undefined }) {
-  return (
-    <span className="flex items-center gap-2.5">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-ink font-display text-sm font-bold text-ink-foreground">
-        {brand.slice(0, 1)}
-        <span className="text-primary">.</span>
-      </span>
-      <span className="font-display text-lg font-bold tracking-tight">{brand}</span>
-    </span>
-  );
+export function Logo({ brand = "RRW", className }: { brand?: string | undefined; className?: string }) {
+  return <img src={logoUrl} alt={brand} width={480} height={127} className={cn("h-7 w-auto", className)} />;
 }
 
 export function Header({ brand }: { brand?: string | undefined }) {

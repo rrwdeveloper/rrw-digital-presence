@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Mail, MessageCircle } from "lucide-react";
 import { waLink } from "@/lib/format";
+import logoLightUrl from "@/assets/rrw-logo-light.png";
 import type { Database } from "@/integrations/supabase/types";
 
 type Settings = Database["public"]["Tables"]["site_settings"]["Row"] | null;
@@ -11,10 +12,7 @@ export function Footer({ settings }: { settings: Settings }) {
     <footer className="bg-ink-gradient text-ink-foreground">
       <div className="container-x grid gap-12 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
-          <p className="font-display text-2xl font-bold">
-            {brand}
-            <span className="text-primary">.</span>
-          </p>
+          <img src={logoLightUrl} alt={brand} width={480} height={127} className="h-9 w-auto" loading="lazy" />
           <p className="mt-3 max-w-sm text-ink-muted">{settings?.tagline}</p>
           <div className="mt-6 flex gap-3">
             {settings?.whatsapp && (
