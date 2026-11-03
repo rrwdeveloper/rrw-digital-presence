@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, ArrowUpRight, Code2, LayoutTemplate, ShieldCheck, Smartphone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Headphones, LayoutTemplate, Smartphone, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroMockup } from "@/components/site/HeroMockup";
 import { Reveal, SectionHeading } from "@/components/site/Reveal";
@@ -42,10 +42,10 @@ export const Route = createFileRoute("/_site/")({
 });
 
 const VALUES = [
-  { icon: LayoutTemplate, title: "Modern & Professional", text: "Desain bersih yang membangun kepercayaan sejak kesan pertama." },
-  { icon: Smartphone, title: "Responsive", text: "Tampil optimal di HP, tablet, hingga layar desktop lebar." },
-  { icon: Code2, title: "Custom Solutions", text: "Dibangun sesuai kebutuhan, bukan sekadar template." },
-  { icon: ShieldCheck, title: "Reliable Development", text: "Kode rapi, performa cepat, dan proses yang transparan." },
+  { icon: LayoutTemplate, title: "Desain Modern", text: "Desain bersih yang membangun kepercayaan sejak kesan pertama." },
+  { icon: Smartphone, title: "Responsive HP & Desktop", text: "Tampil optimal di HP, tablet, hingga layar desktop lebar." },
+  { icon: Zap, title: "Proses Cepat & Terpercaya", text: "Alur kerja jelas, tepat waktu, dan transparan." },
+  { icon: Headphones, title: "Support & Revisi", text: "Revisi sesuai paket dan dukungan setelah website online." },
 ];
 
 function Home() {
