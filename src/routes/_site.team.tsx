@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_site/team")({
     pageMeta({
       title: "Tim di Balik RRW — Reyvanzi, Rifki & Wira",
       description:
-        "RRW adalah singkatan dari Reyvanzi, Rifki, dan Wira — sahabat sejak sekolah dasar yang kini sama-sama kuliah di Universitas Gunadarma.",
+        "RRW adalah singkatan dari nama kami: Reyvanzi, Rifki, dan Wira — sahabat sejak sekolah dasar yang kini sama-sama kuliah di Universitas Gunadarma.",
       path: "/team",
     }),
   component: TeamPage,
