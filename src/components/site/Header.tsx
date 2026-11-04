@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,21 +24,40 @@ export function Logo({ brand = "RRW", className }: { brand?: string | undefined;
 export function Header({ brand }: { brand?: string | undefined }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // Auto-close menu when route changes
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 12);
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
+
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "border-b bg-background/85 backdrop-blur-xl" : "bg-transparent",
+        open
+          ? "border-b border-border bg-background shadow-sm"
+          : scrolled
+            ? "border-b border-border/80 bg-background/90 backdrop-blur-xl shadow-xs"
+            : "border-b border-border/40 bg-background/85 backdrop-blur-md lg:border-transparent lg:bg-transparent lg:backdrop-blur-none",
       )}
     >
       <div className="container-x flex h-16 items-center justify-between md:h-20">
@@ -66,7 +85,13 @@ export function Header({ brand }: { brand?: string | undefined }) {
           </Button>
         </div>
         <button
-          className="grid h-10 w-10 place-items-center rounded-full border bg-card lg:hidden"
+          type="button"
+          className={cn(
+            "relative z-50 grid h-10 w-10 place-items-center rounded-xl border transition-all duration-200 lg:hidden",
+            open
+              ? "border-primary/40 bg-primary/10 text-primary shadow-xs"
+              : "border-border bg-card text-foreground shadow-xs hover:bg-accent hover:text-primary active:scale-95",
+          )}
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Tutup menu" : "Buka menu"}
           aria-expanded={open}
@@ -75,26 +100,29 @@ export function Header({ brand }: { brand?: string | undefined }) {
         </button>
       </div>
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-16 z-40 animate-in fade-in bg-background lg:hidden">
-          <nav className="container-x flex flex-col py-6" aria-label="Mobile">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col overflow-y-auto bg-background/98 p-6 backdrop-blur-2xl lg:hidden">
+          <nav className="flex flex-1 flex-col justify-start gap-1 pb-6" aria-label="Mobile">
             {NAV.map((n, i) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: n.to === "/" }}
-                className="flex items-center justify-between border-b py-4 font-display text-2xl font-semibold text-foreground/80 transition-all"
-                activeProps={{ className: "!text-primary !border-primary pl-2 font-bold" }}
-                style={{ animation: `fade-up .5s ${i * 40}ms both` }}
+                className="flex items-center justify-between rounded-xl px-4 py-3.5 font-display text-lg font-semibold text-foreground/85 transition-all hover:bg-accent hover:text-primary"
+                activeProps={{ className: "!bg-primary/10 !text-primary !font-bold" }}
+                style={{ animation: `fade-up .25s ${i * 25}ms both` }}
               >
-                {n.label}
+                <span>{n.label}</span>
+                <span className="text-xs text-muted-foreground/60">→</span>
               </Link>
             ))}
-            <Button asChild variant="hero" size="xl" className="mt-8">
-              <Link to="/contact" onClick={() => setOpen(false)}>
-                Konsultasi Gratis
-              </Link>
-            </Button>
+            <div className="mt-4 border-t border-border/80 pt-5">
+              <Button asChild variant="hero" size="xl" className="w-full">
+                <Link to="/contact" onClick={() => setOpen(false)}>
+                  Konsultasi Gratis <ArrowUpRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </nav>
         </div>
       )}
