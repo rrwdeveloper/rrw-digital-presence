@@ -19,6 +19,7 @@ import {
   Sparkles,
   Tag,
   User,
+  Users,
   X,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,6 +39,7 @@ const GROUPS = [
       { to: "/admin/settings", label: "General & Contact", icon: Settings },
       { to: "/admin/hero", label: "Hero", icon: Sparkles },
       { to: "/admin/about", label: "About", icon: Building2 },
+      { to: "/admin/team", label: "Team", icon: Users },
       { to: "/admin/services", label: "Services", icon: Layers },
       { to: "/admin/addons", label: "Add-ons", icon: Puzzle },
       { to: "/admin/portfolio", label: "Portfolio", icon: FolderKanban },
