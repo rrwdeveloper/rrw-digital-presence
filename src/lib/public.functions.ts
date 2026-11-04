@@ -4,7 +4,14 @@ import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 
 function db() {
-  return createClient<Database>(process.env["SUPABASE_URL"]!, process.env["SUPABASE_PUBLISHABLE_KEY"]!, {
+  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  if (!url || !key) {
+    throw new Error(
+      `Missing Supabase environment variables on server (SUPABASE_URL: ${url ? "set" : "not set"}, SUPABASE_PUBLISHABLE_KEY: ${key ? "set" : "not set"})`
+    );
+  }
+  return createClient<Database>(url, key, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });
 }

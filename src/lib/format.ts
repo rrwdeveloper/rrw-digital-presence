@@ -23,7 +23,10 @@ export function waLink(number: string | null | undefined, text?: string) {
   return `https://wa.me/${n}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 }
 
-export const SITE_URL = "https://project--d054dd12-a642-48b1-95cf-7f29cff6eca4.lovable.app";
+export const SITE_URL =
+  (typeof process !== "undefined" && (process.env["SITE_URL"] || process.env["VITE_SITE_URL"])) ||
+  (typeof import.meta !== "undefined" && import.meta.env?.["VITE_SITE_URL"]) ||
+  "https://rrw-digital-presence.rrw-dev.workers.dev";
 
 export function pageMeta(opts: { title: string; description: string; path: string; image?: string | null; type?: string }) {
   const meta: Array<Record<string, string>> = [

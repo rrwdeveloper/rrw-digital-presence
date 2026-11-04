@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://project--d054dd12-a642-48b1-95cf-7f29cff6eca4.lovable.app/sitemap.xml
+Sitemap: https://rrw-digital-presence.rrw-dev.workers.dev/sitemap.xml
