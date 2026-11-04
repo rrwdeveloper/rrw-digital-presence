@@ -31,6 +31,7 @@ export const getSiteData = createServerFn({ method: "GET" }).handler(async () =>
     hero: check(hero),
     about: check(about) as (Database["public"]["Tables"]["about_content"]["Row"] & {
       highlights: { title: string; description: string }[];
+      team_milestones: { title: string; description: string }[];
     }) | null,
   };
 });
@@ -72,6 +73,10 @@ export const getProcessSteps = createServerFn({ method: "GET" }).handler(async (
 
 export const getFaqs = createServerFn({ method: "GET" }).handler(async () =>
   list(await db().from("faqs").select("*").eq("active", true).order("sort_order")),
+);
+
+export const getTeam = createServerFn({ method: "GET" }).handler(async () =>
+  list(await db().from("team_members").select("*").eq("active", true).order("sort_order")),
 );
 
 export const getBlogPosts = createServerFn({ method: "GET" }).handler(async () =>

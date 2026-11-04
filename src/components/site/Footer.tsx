@@ -37,6 +37,7 @@ export function Footer({ settings }: { settings: Settings }) {
             <p className="text-sm font-semibold">Studio</p>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
               <li><Link to="/about" className="hover:text-ink-foreground">About</Link></li>
+              <li><Link to="/team" className="hover:text-ink-foreground">Team</Link></li>
               <li><Link to="/process" className="hover:text-ink-foreground">Process</Link></li>
               <li><Link to="/portfolio" className="hover:text-ink-foreground">Portfolio</Link></li>
             </ul>

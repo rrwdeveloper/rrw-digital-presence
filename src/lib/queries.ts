@@ -10,6 +10,7 @@ import {
   getServiceBySlug,
   getServices,
   getSiteData,
+  getTeam,
 } from "./public.functions";
 
 const stale = 60_000;
@@ -28,6 +29,7 @@ export const portfolioItemQuery = (slug: string) =>
   });
 export const processQuery = queryOptions({ queryKey: ["process"], queryFn: () => getProcessSteps(), staleTime: stale });
 export const faqQuery = queryOptions({ queryKey: ["faqs"], queryFn: () => getFaqs(), staleTime: stale });
+export const teamQuery = queryOptions({ queryKey: ["team"], queryFn: () => getTeam(), staleTime: stale });
 export const blogQuery = queryOptions({ queryKey: ["blog"], queryFn: () => getBlogPosts(), staleTime: stale });
 export const blogPostQuery = (slug: string) =>
   queryOptions({ queryKey: ["blog", slug], queryFn: () => getBlogPostBySlug({ data: { slug } }), staleTime: stale });

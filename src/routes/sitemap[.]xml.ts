@@ -16,7 +16,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           c.from("blog_posts").select("slug,updated_at").eq("published", true),
         ]);
         const urls = [
-          ...["/", "/services", "/portfolio", "/about", "/process", "/blog", "/faq", "/contact"].map((u) => ({ loc: u })),
+          ...["/", "/services", "/portfolio", "/about", "/team", "/process", "/blog", "/faq", "/contact"].map((u) => ({ loc: u })),
           ...(s.data ?? []).map((r) => ({ loc: `/services/${r.slug}`, lastmod: r.updated_at })),
           ...(p.data ?? []).map((r) => ({ loc: `/portfolio/${r.slug}`, lastmod: r.updated_at })),
           ...(b.data ?? []).map((r) => ({ loc: `/blog/${r.slug}`, lastmod: r.updated_at })),
