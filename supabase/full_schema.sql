@@ -526,40 +526,52 @@ INSERT INTO public.services (name, slug, short_description, full_description, st
 ON CONFLICT (slug) DO NOTHING;
 
 -- Addons
-INSERT INTO public.addons (name, description, price, price_label, price_suffix, icon, sort_order) VALUES
-('Domain & Hosting', 'Pendaftaran domain dan hosting yang cepat serta stabil.', 450000, 'Mulai dari', '/ tahun', 'Globe', 1),
-('Maintenance', 'Pembaruan, perbaikan, dan dukungan teknis berkala.', 1500000, 'Mulai dari', '/ tahun', 'Wrench', 2),
-('Add-On Fitur', 'Fitur di luar paket, termasuk payment gateway dan integrasi custom.', 450000, 'Mulai dari', NULL, 'Puzzle', 3),
-('Keamanan & Backup', 'Website lebih aman dengan perlindungan dan backup data.', 0, 'Mulai dari', NULL, 'ShieldCheck', 4)
-ON CONFLICT DO NOTHING;
+INSERT INTO public.addons (name, description, price, price_label, price_suffix, icon, sort_order)
+SELECT name, description, price, price_label, price_suffix, icon, sort_order
+FROM (VALUES
+  ('Domain & Hosting', 'Pendaftaran domain dan hosting yang cepat serta stabil.', 450000, 'Mulai dari', '/ tahun', 'Globe', 1),
+  ('Maintenance', 'Pembaruan, perbaikan, dan dukungan teknis berkala.', 1500000, 'Mulai dari', '/ tahun', 'Wrench', 2),
+  ('Add-On Fitur', 'Fitur di luar paket, termasuk payment gateway dan integrasi custom.', 450000, 'Mulai dari', NULL, 'Puzzle', 3),
+  ('Keamanan & Backup', 'Website lebih aman dengan perlindungan dan backup data.', 0, 'Mulai dari', NULL, 'ShieldCheck', 4)
+) AS v(name, description, price, price_label, price_suffix, icon, sort_order)
+WHERE NOT EXISTS (SELECT 1 FROM public.addons);
 
 -- Team Members
-INSERT INTO public.team_members (name, initial, role, bio, sort_order) VALUES
-('Reyvanzi', 'R', 'Co-Founder', 'Sahabat Rifki dan Wira sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 1),
-('Rifki', 'R', 'Co-Founder', 'Sahabat Reyvanzi dan Wira sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 2),
-('Wira', 'W', 'Co-Founder', 'Sahabat Reyvanzi dan Rifki sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 3)
-ON CONFLICT DO NOTHING;
+INSERT INTO public.team_members (name, initial, role, bio, sort_order)
+SELECT name, initial, role, bio, sort_order
+FROM (VALUES
+  ('Reyvanzi', 'R', 'Co-Founder', 'Sahabat Rifki dan Wira sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 1),
+  ('Rifki', 'R', 'Co-Founder', 'Sahabat Reyvanzi dan Wira sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 2),
+  ('Wira', 'W', 'Co-Founder', 'Sahabat Reyvanzi dan Rifki sejak sekolah dasar, kini mahasiswa Universitas Gunadarma.', 3)
+) AS v(name, initial, role, bio, sort_order)
+WHERE NOT EXISTS (SELECT 1 FROM public.team_members);
 
 -- Process Steps
-INSERT INTO public.process_steps (step_number, title, description, sort_order) VALUES
-('01', 'Discover', 'Memahami kebutuhan klien dan tujuan bisnis.', 1),
-('02', 'Plan', 'Menentukan struktur, fitur, scope, dan teknologi.', 2),
-('03', 'Design', 'Menyusun arah UI/UX dan sistem visual.', 3),
-('04', 'Develop', 'Membangun website atau aplikasi web.', 4),
-('05', 'Test', 'Menguji fungsionalitas, responsivitas, usability, dan performa.', 5),
-('06', 'Launch', 'Deploy project dan serah terima hasil akhir.', 6)
-ON CONFLICT DO NOTHING;
+INSERT INTO public.process_steps (step_number, title, description, sort_order)
+SELECT step_number, title, description, sort_order
+FROM (VALUES
+  ('01', 'Discover', 'Memahami kebutuhan klien dan tujuan bisnis.', 1),
+  ('02', 'Plan', 'Menentukan struktur, fitur, scope, dan teknologi.', 2),
+  ('03', 'Design', 'Menyusun arah UI/UX dan sistem visual.', 3),
+  ('04', 'Develop', 'Membangun website atau aplikasi web.', 4),
+  ('05', 'Test', 'Menguji fungsionalitas, responsivitas, usability, dan performa.', 5),
+  ('06', 'Launch', 'Deploy project dan serah terima hasil akhir.', 6)
+) AS v(step_number, title, description, sort_order)
+WHERE NOT EXISTS (SELECT 1 FROM public.process_steps);
 
 -- FAQs
-INSERT INTO public.faqs (question, answer, sort_order) VALUES
-('Berapa lama proses pembuatan website?', 'Landing page umumnya 3-7 hari kerja, company profile 2-3 minggu, dan aplikasi web menyesuaikan kompleksitas. Estimasi pasti diberikan setelah scope disepakati.', 1),
-('Apakah domain dan hosting termasuk?', 'Domain dan hosting tidak otomatis termasuk dalam paket. Keduanya tersedia sebagai layanan tambahan mulai dari Rp450.000 per tahun.', 2),
-('Apakah website bisa dikelola sendiri?', 'Bisa, untuk paket yang dilengkapi CMS. Anda mendapatkan dashboard admin beserta pelatihan singkat penggunaannya.', 3),
-('Apakah tersedia maintenance?', 'Tersedia sebagai layanan tambahan mulai dari Rp1.500.000 per tahun, mencakup pembaruan, perbaikan, dan dukungan teknis berkala.', 4),
-('Apakah bisa request fitur custom?', 'Bisa. Fitur di luar scope paket dapat ditambahkan dengan penyesuaian biaya sesuai kebutuhan.', 5),
-('Apakah bisa dibuatkan sistem sesuai kebutuhan bisnis?', 'Bisa. Kami membangun aplikasi web custom mulai dari sistem informasi sederhana hingga aplikasi bisnis kompleks.', 6),
-('Berapa kali revisi yang didapat?', 'Jumlah revisi mengikuti paket yang dipilih, yaitu 2 hingga 3 kali revisi. Revisi tambahan dapat didiskusikan.', 7)
-ON CONFLICT DO NOTHING;
+INSERT INTO public.faqs (question, answer, sort_order)
+SELECT question, answer, sort_order
+FROM (VALUES
+  ('Berapa lama proses pembuatan website?', 'Landing page umumnya 3-7 hari kerja, company profile 2-3 minggu, dan aplikasi web menyesuaikan kompleksitas. Estimasi pasti diberikan setelah scope disepakati.', 1),
+  ('Apakah domain dan hosting termasuk?', 'Domain dan hosting tidak otomatis termasuk dalam paket. Keduanya tersedia sebagai layanan tambahan mulai dari Rp450.000 per tahun.', 2),
+  ('Apakah website bisa dikelola sendiri?', 'Bisa, untuk paket yang dilengkapi CMS. Anda mendapatkan dashboard admin beserta pelatihan singkat penggunaannya.', 3),
+  ('Apakah tersedia maintenance?', 'Tersedia sebagai layanan tambahan mulai dari Rp1.500.000 per tahun, mencakup pembaruan, perbaikan, dan dukungan teknis berkala.', 4),
+  ('Apakah bisa request fitur custom?', 'Bisa. Fitur di luar scope paket dapat ditambahkan dengan penyesuaian biaya sesuai kebutuhan.', 5),
+  ('Apakah bisa dibuatkan sistem sesuai kebutuhan bisnis?', 'Bisa. Kami membangun aplikasi web custom mulai dari sistem informasi sederhana hingga aplikasi bisnis kompleks.', 6),
+  ('Berapa kali revisi yang didapat?', 'Jumlah revisi mengikuti paket yang dipilih, yaitu 2 hingga 3 kali revisi. Revisi tambahan dapat didiskusikan.', 7)
+) AS v(question, answer, sort_order)
+WHERE NOT EXISTS (SELECT 1 FROM public.faqs);
 
 -- Blog Categories
 INSERT INTO public.blog_categories (name, slug) VALUES
