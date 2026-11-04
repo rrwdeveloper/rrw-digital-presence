@@ -51,8 +51,8 @@ export function Header({ brand }: { brand?: string | undefined }) {
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              className="rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted/60 hover:text-foreground"
+              activeProps={{ className: "!bg-primary/12 !text-primary font-semibold shadow-xs" }}
             >
               {n.label}
             </Link>
@@ -83,8 +83,8 @@ export function Header({ brand }: { brand?: string | undefined }) {
                 to={n.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: n.to === "/" }}
-                className="flex items-center justify-between border-b py-4 font-display text-2xl font-semibold"
-                activeProps={{ className: "text-primary" }}
+                className="flex items-center justify-between border-b py-4 font-display text-2xl font-semibold text-foreground/80 transition-all"
+                activeProps={{ className: "!text-primary !border-primary pl-2 font-bold" }}
                 style={{ animation: `fade-up .5s ${i * 40}ms both` }}
               >
                 {n.label}
