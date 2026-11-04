@@ -464,7 +464,7 @@ INSERT INTO public.site_settings (brand_name, tagline, whatsapp, email, instagra
 SELECT
   'RRW',
   'We Build Your Digital Presence',
-  '6283165155916',
+  '6281384514320',
   'rrw.dev@gmail.com',
   'rrw.dev',
   'Indonesia',

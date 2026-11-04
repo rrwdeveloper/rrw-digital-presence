@@ -19,7 +19,8 @@ export function slugify(input: string) {
 }
 
 export function waLink(number: string | null | undefined, text?: string) {
-  const n = (number ?? "").replace(/\D/g, "");
+  let n = (number ?? "").replace(/\D/g, "");
+  if (n.startsWith("0")) n = "62" + n.slice(1);
   return `https://wa.me/${n}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 }
 
