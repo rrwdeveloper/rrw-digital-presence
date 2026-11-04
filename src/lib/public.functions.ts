@@ -3,14 +3,13 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 
+const FALLBACK_URL = "https://hyvecvabziudieidgqtj.supabase.co";
+const FALLBACK_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dmVjdmFieml1ZGllaWRncXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3ODQyNDIsImV4cCI6MjEwOTM2MDI0Mn0.jC6ZaldJ-YvFqzR-9aD6NhgDtO9pMYs0jxuysdABOzs";
+
 function db() {
-  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"];
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
-  if (!url || !key) {
-    throw new Error(
-      `Missing Supabase environment variables on server (SUPABASE_URL: ${url ? "set" : "not set"}, SUPABASE_PUBLISHABLE_KEY: ${key ? "set" : "not set"})`
-    );
-  }
+  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"] || FALLBACK_URL;
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] || FALLBACK_KEY;
   return createClient<Database>(url, key, {
     auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
   });

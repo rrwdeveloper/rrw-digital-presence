@@ -7,9 +7,9 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"];
-        const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
-        const c = createClient<Database>(url!, key!, {
+        const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"] || "https://hyvecvabziudieidgqtj.supabase.co";
+        const key = process.env["SUPABASE_PUBLISHABLE_KEY"] || process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dmVjdmFieml1ZGllaWRncXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3ODQyNDIsImV4cCI6MjEwOTM2MDI0Mn0.jC6ZaldJ-YvFqzR-9aD6NhgDtO9pMYs0jxuysdABOzs";
+        const c = createClient<Database>(url, key, {
           auth: { persistSession: false, autoRefreshToken: false },
         });
         const [s, p, b] = await Promise.all([
