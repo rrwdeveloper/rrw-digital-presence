@@ -18,6 +18,7 @@ import { Route as SiteAboutRouteImport } from './routes/_site.about'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteFaqRouteImport } from './routes/_site.faq'
 import { Route as SiteProcessRouteImport } from './routes/_site.process'
+import { Route as SiteTeamRouteImport } from './routes/_site.team'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminAboutRouteImport } from './routes/_authenticated/admin.about'
@@ -32,6 +33,7 @@ import { Route as AuthenticatedAdminProcessRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
 import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
+import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin.team'
 import { Route as SiteBlogIndexRouteImport } from './routes/_site.blog.index'
 import { Route as SiteBlogSlugRouteImport } from './routes/_site.blog.$slug'
 import { Route as SitePortfolioIndexRouteImport } from './routes/_site.portfolio.index'
@@ -80,6 +82,11 @@ const SiteFaqRoute = SiteFaqRouteImport.update({
 const SiteProcessRoute = SiteProcessRouteImport.update({
   id: '/process',
   path: '/process',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteTeamRoute = SiteTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => SiteRoute,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
@@ -160,6 +167,11 @@ const AuthenticatedAdminSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminTeamRoute = AuthenticatedAdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const SiteBlogIndexRoute = SiteBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -199,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof SiteContactRoute
   '/faq': typeof SiteFaqRoute
   '/process': typeof SiteProcessRoute
+  '/team': typeof SiteTeamRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
   '/admin/addons': typeof AuthenticatedAdminAddonsRoute
@@ -212,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/blog/$slug': typeof SiteBlogSlugRoute
   '/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/services/$slug': typeof SiteServicesSlugRoute
@@ -227,6 +241,7 @@ export interface FileRoutesByTo {
   '/contact': typeof SiteContactRoute
   '/faq': typeof SiteFaqRoute
   '/process': typeof SiteProcessRoute
+  '/team': typeof SiteTeamRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/about': typeof AuthenticatedAdminAboutRoute
   '/admin/addons': typeof AuthenticatedAdminAddonsRoute
@@ -240,6 +255,7 @@ export interface FileRoutesByTo {
   '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/services': typeof AuthenticatedAdminServicesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/blog/$slug': typeof SiteBlogSlugRoute
   '/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/services/$slug': typeof SiteServicesSlugRoute
@@ -258,6 +274,7 @@ export interface FileRoutesById {
   '/_site/contact': typeof SiteContactRoute
   '/_site/faq': typeof SiteFaqRoute
   '/_site/process': typeof SiteProcessRoute
+  '/_site/team': typeof SiteTeamRoute
   '/admin/login': typeof AdminLoginRoute
   '/_site/': typeof SiteIndexRoute
   '/_authenticated/admin/about': typeof AuthenticatedAdminAboutRoute
@@ -272,6 +289,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/_site/blog/$slug': typeof SiteBlogSlugRoute
   '/_site/portfolio/$slug': typeof SitePortfolioSlugRoute
   '/_site/services/$slug': typeof SiteServicesSlugRoute
@@ -290,6 +308,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/process'
+    | '/team'
     | '/admin/login'
     | '/admin/about'
     | '/admin/addons'
@@ -303,6 +322,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/services'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/portfolio/$slug'
     | '/services/$slug'
@@ -318,6 +338,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/process'
+    | '/team'
     | '/admin/login'
     | '/admin/about'
     | '/admin/addons'
@@ -331,6 +352,7 @@ export interface FileRouteTypes {
     | '/admin/profile'
     | '/admin/services'
     | '/admin/settings'
+    | '/admin/team'
     | '/blog/$slug'
     | '/portfolio/$slug'
     | '/services/$slug'
@@ -348,6 +370,7 @@ export interface FileRouteTypes {
     | '/_site/contact'
     | '/_site/faq'
     | '/_site/process'
+    | '/_site/team'
     | '/admin/login'
     | '/_site/'
     | '/_authenticated/admin/about'
@@ -362,6 +385,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/profile'
     | '/_authenticated/admin/services'
     | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/team'
     | '/_site/blog/$slug'
     | '/_site/portfolio/$slug'
     | '/_site/services/$slug'
@@ -441,6 +465,13 @@ declare module '@tanstack/react-router' {
       path: '/process'
       fullPath: '/process'
       preLoaderRoute: typeof SiteProcessRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/team': {
+      id: '/_site/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof SiteTeamRouteImport
       parentRoute: typeof SiteRoute
     }
     '/admin/login': {
@@ -541,6 +572,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/team': {
+      id: '/_authenticated/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AuthenticatedAdminTeamRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_site/blog/': {
       id: '/_site/blog/'
       path: '/blog'
@@ -599,6 +637,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -615,6 +654,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
   AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
   AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+  AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
@@ -637,6 +677,7 @@ interface SiteRouteChildren {
   SiteContactRoute: typeof SiteContactRoute
   SiteFaqRoute: typeof SiteFaqRoute
   SiteProcessRoute: typeof SiteProcessRoute
+  SiteTeamRoute: typeof SiteTeamRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SiteBlogSlugRoute: typeof SiteBlogSlugRoute
   SitePortfolioSlugRoute: typeof SitePortfolioSlugRoute
@@ -651,6 +692,7 @@ const SiteRouteChildren: SiteRouteChildren = {
   SiteContactRoute: SiteContactRoute,
   SiteFaqRoute: SiteFaqRoute,
   SiteProcessRoute: SiteProcessRoute,
+  SiteTeamRoute: SiteTeamRoute,
   SiteIndexRoute: SiteIndexRoute,
   SiteBlogSlugRoute: SiteBlogSlugRoute,
   SitePortfolioSlugRoute: SitePortfolioSlugRoute,
