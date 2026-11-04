@@ -57,6 +57,11 @@ function Home() {
   const hero = site.hero;
   const about = site.about;
 
+  const displayServices = (() => {
+    const featured = services.filter((s) => s.featured);
+    return featured.length > 0 ? featured.slice(0, 3) : services.slice(0, 3);
+  })();
+
   return (
     <>
       {/* HERO */}
@@ -142,11 +147,21 @@ function Home() {
           </Button>
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
+          {displayServices.map((s, i) => (
             <Reveal key={s.id} delay={(i % 3) * 80} className="h-full">
               <ServiceCard s={s} />
             </Reveal>
           ))}
+        </div>
+        <div className="mt-12 flex flex-col items-center justify-center gap-3 text-center">
+          <Button asChild variant="hero" size="xl">
+            <Link to="/services">
+              Lihat Seluruh Layanan & Paket <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            Menampilkan {displayServices.length} dari {services.length} layanan yang tersedia
+          </p>
         </div>
         {site.settings?.pricing_note && (
           <p className="mt-8 text-center text-sm text-muted-foreground">* {site.settings.pricing_note}</p>
