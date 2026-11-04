@@ -1,4 +1,4 @@
-import { CheckCircle2, TrendingUp, Zap } from "lucide-react";
+import { CheckCircle2, TrendingUp } from "lucide-react";
 
 /** Pure-CSS device mockups — crisp at any size, no image weight. */
 export function HeroMockup() {
@@ -66,18 +66,7 @@ export function HeroMockup() {
         </div>
       </div>
 
-      {/* Floating UI */}
-      <div className="absolute -right-2 top-16 animate-float rounded-xl border bg-card px-4 py-3 shadow-elevated md:-right-8">
-        <div className="flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-accent text-primary">
-            <Zap className="h-4 w-4" />
-          </span>
-          <div>
-            <p className="text-[11px] text-muted-foreground">Performance</p>
-            <p className="font-display text-sm font-semibold">98 / 100</p>
-          </div>
-        </div>
-      </div>
+
       <div
         className="absolute -bottom-6 right-6 animate-float rounded-xl border bg-card px-4 py-3 shadow-elevated"
         style={{ animationDelay: "1.5s" }}
